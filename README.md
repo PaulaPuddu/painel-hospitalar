@@ -66,18 +66,6 @@ Todos os painéis respondem aos mesmos filtros na barra lateral:
 pip install -r requirements.txt
 ```
 
-### Configuração dos secrets
-
-Crie o arquivo `.streamlit/secrets.toml`:
-
-```toml
-DB_USER = "seu_usuario"
-DB_PASSWORD = "sua_senha"
-DB_DSN = "seu_dsn"
-WALLET_DIR = "wallet"
-WALLET_PASSWORD = "sua_wallet_password"
-```
-
 ### Executar
 
 ```bash
