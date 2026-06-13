@@ -1233,7 +1233,7 @@ elif pagina == "Perfil de Atendimento":
 
             # ── Tabela + insight ───────────────────────────────
             with col_tab:
-                st.markdown("#### Permanência e custo por capítulo")
+                st.markdown("#### Permanência e Custo")
                 df_tab = df_cap[["CAPITULO", "PERMANENCIA_MEDIA", "CUSTO_TOTAL"]].copy()
                 df_tab.columns = ["Capítulo", "Perm. média (dias)", "Custo total (R$)"]
                 df_tab["Custo total (R$)"] = df_tab["Custo total (R$)"].apply(
