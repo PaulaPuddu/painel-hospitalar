@@ -1,0 +1,24 @@
+# Segredos — NUNCA commitar
+.streamlit/secrets.toml
+
+# Arquivos gerados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ambientes virtuais
+venv/
+.venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Arquivos temporários
+*.tmp
+*.log
+gerar_doc.py
