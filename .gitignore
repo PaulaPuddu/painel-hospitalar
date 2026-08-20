@@ -1,5 +1,10 @@
-# Segredos — NUNCA commitar
+# Segredos e credenciais — NUNCA commitar
 .streamlit/secrets.toml
+wallet/
+
+# Arquivos internos de desenvolvimento
+notas_tecnicas.md
+*.docx
 
 # Arquivos gerados
 __pycache__/

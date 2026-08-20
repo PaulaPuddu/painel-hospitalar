@@ -94,4 +94,27 @@ O app está publicado no **Streamlit Cloud** e conectado a este repositório. Qu
 
 ## Equipe
 
-**Challenge Oracle + FIAP · Turma 1TSCO · 2024**
+| RM | Nome |
+|----|------|
+| 570792 | Ana Paula Puddu |
+| 571002 | Larissa de Oliveira Santos |
+| 573329 | Pedro Paulo Pelegrinelli |
+| 570165 | Thiago Gonçalves da Silva |
+| 568605 | Thomas Useche Alvarez |
+
+**Challenge Oracle + FIAP · Turma 1TSCO · Sprint 2 · 2026**
+
+---
+
+## Estrutura do repositório
+
+```
+painel_hospitalar.py       # App Streamlit principal (4 seções)
+select_ai_setup.sql        # Configuração e exemplos do Oracle Select AI
+requirements.txt           # Dependências Python
+.gitignore                 # wallet/ e secrets.toml excluídos
+.streamlit/
+  secrets.toml.example     # Template de credenciais (não commitar o real)
+```
+
+> **Extração de dados e análise K-Means:** ver pasta `extracao/` (notebook Colab)
