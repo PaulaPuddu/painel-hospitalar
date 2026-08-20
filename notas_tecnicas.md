@@ -1,6 +1,6 @@
-# Notas Tecnicas — Painel Inteligente de Acesso Hospitalar
+# Notas Técnicas — Painel Inteligente de Acesso Hospitalar
 
-> Arquivo de contexto para o referencia tecnica. Lê isto antes de mexer no `painel_hospitalar.py`.
+> Referência técnica do projeto. Leia antes de mexer no `painel_hospitalar.py`.
 > O projeto já tem um MVP funcionando; o trabalho agora é **lapidar o app** (visual + análises).
 
 ---

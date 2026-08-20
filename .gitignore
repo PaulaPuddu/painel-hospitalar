@@ -3,7 +3,6 @@
 wallet/
 
 # Arquivos internos de desenvolvimento
-notas_tecnicas.md
 *.docx
 
 # Arquivos gerados
