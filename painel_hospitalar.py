@@ -1,7 +1,7 @@
 """
 ============================================================
  PAINEL INTELIGENTE DE ACESSO HOSPITALAR
- Vazio Assistencial — SP 2024  ·  Challenge Oracle + FIAP
+ Vazio Assistencial — SP 2024  ·  Challenge Oracle + FIAP - Sprint2
 ============================================================
 """
 import os

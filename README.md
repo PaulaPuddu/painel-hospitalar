@@ -113,8 +113,9 @@ painel_hospitalar.py       # App Streamlit principal (4 seções)
 select_ai_setup.sql        # Configuração e exemplos do Oracle Select AI
 requirements.txt           # Dependências Python
 .gitignore                 # wallet/ e secrets.toml excluídos
+notas_tecnicas.md          # Referência técnica: esquemas, queries validadas, arquitetura
 .streamlit/
   secrets.toml.example     # Template de credenciais (não commitar o real)
+extracao/
+  Ingestao_EDA.ipynb       # Pipeline de ingestão (SIH/SUS, CNES, IBGE) + EDA + K-Means
 ```
-
-> **Extração de dados e análise K-Means:** ver pasta `extracao/` (notebook Colab)
