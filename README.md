@@ -116,6 +116,6 @@ requirements.txt           # Dependências Python
 notas_tecnicas.md          # Referência técnica: esquemas, queries validadas, arquitetura
 .streamlit/
   secrets.toml.example     # Template de credenciais (não commitar o real)
-extracao/
-  Ingestao_EDA.ipynb       # Pipeline de ingestão (SIH/SUS, CNES, IBGE) + EDA + K-Means
+Ingestao_EDA_Modelo/
+  Ingestao_EDA_Modelo.ipynb  # Pipeline de ingestão (SIH/SUS, CNES, IBGE) + EDA + K-Means
 ```
