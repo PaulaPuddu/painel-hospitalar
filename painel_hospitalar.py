@@ -654,6 +654,11 @@ with st.sidebar:
         "Fontes: SIH/SUS · CNES · IBGE</small>",
         unsafe_allow_html=True,
     )
+    st.markdown(
+        "<small><a href='https://github.com/PaulaPuddu/painel-hospitalar' "
+        "target='_blank' style='color:#C98B32;text-decoration:none;'>📂 Repositório GitHub</a></small>",
+        unsafe_allow_html=True,
+    )
 
 if not conectado:
     st.error("Não foi possível conectar ao banco. Verifique as credenciais.")
