@@ -230,12 +230,21 @@ def garantir_profile(conn):
                       "region": "sa-saopaulo-1",
                       "model": "cohere.command-r-08-2024",
                       "oci_apiformat": "COHERE",
+                      "comments": "Banco de dados de saude publica do Brasil. SEMPRE responda em portugues do Brasil. NUNCA use ingles.",
                       "object_list": [
                         {"owner":"ADMIN","name":"SIH_INTERNACOES"},
                         {"owner":"ADMIN","name":"POPULACAO_DADOS"},
                         {"owner":"ADMIN","name":"VW_VAZIO_ASSISTENCIAL"}
                       ]
                     }'
+                ); END;
+            """, pname=PROFILE)
+        else:
+            cur.execute("""
+                BEGIN DBMS_CLOUD_AI.SET_ATTRIBUTE(
+                    profile_name => :pname,
+                    attribute_name => 'comments',
+                    attribute_value => 'Banco de dados de saude publica do Brasil. SEMPRE responda em portugues do Brasil. NUNCA use ingles.'
                 ); END;
             """, pname=PROFILE)
         cur.execute("BEGIN DBMS_CLOUD_AI.SET_PROFILE(:1); END;", [PROFILE])
@@ -1119,9 +1128,9 @@ elif pagina == "Vazio Assistencial":
             with st.spinner("Gerando análise…"):
                 narrativa = perguntar_ai(
                     conn,
-                    "INSTRUÇÕES OBRIGATÓRIAS: responda EXCLUSIVAMENTE em português do Brasil. "
-                    "Não escreva nenhuma palavra em inglês. "
-                    "Em no máximo 4 frases curtas, resuma os principais padrões "
+                    "Você é um especialista em saúde pública brasileira. "
+                    "REGRA ABSOLUTA: responda SOMENTE em português do Brasil. É PROIBIDO usar inglês. "
+                    "Em no máximo 4 frases curtas, resuma em português os principais padrões "
                     "de vazio assistencial em SP: quais municípios mais exportam "
                     "pacientes, para onde vão e o que isso significa para a saúde pública.",
                     action="narrate",
@@ -1370,9 +1379,10 @@ elif pagina == "Select AI":
             st.write("📝  Gerando análise em português…")
             try:
                 _prompt_pt = (
-                    "INSTRUÇÕES OBRIGATÓRIAS: responda EXCLUSIVAMENTE em português do Brasil. "
-                    "Não escreva nenhuma palavra em inglês. Use linguagem clara e direta. "
-                    f"Pergunta: {pergunta}"
+                    "Você é um especialista em saúde pública brasileira. "
+                    "REGRA ABSOLUTA: responda SOMENTE em português do Brasil. "
+                    "É PROIBIDO usar inglês. Traduza qualquer termo técnico para português. "
+                    f"Analise os dados e responda em português: {pergunta}"
                 )
                 st.session_state["ai_narrativa"] = perguntar_ai(conn, _prompt_pt, action="narrate")
                 st.write("✅  Análise concluída")
