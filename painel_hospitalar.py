@@ -176,16 +176,22 @@ PROFILE    = "PAINEL_APP_GENAI"
 CORES_ZONA = {"Crítico": "#A63A2B", "Atenção": "#C98B32", "Adequado": "#2D7A4D"}
 
 
-# ── WALLET — descompacta em memória se fornecido como base64 ──
-import base64, zipfile, io, tempfile, pathlib
+# ── WALLET — monta em memória a partir de secrets individuais ──
+import base64, io, tempfile, pathlib
 
 @st.cache_resource
 def _wallet_dir():
-    b64 = st.secrets.get("WALLET_B64", os.getenv("WALLET_B64", ""))
-    if b64:
+    ewallet_b64  = st.secrets.get("EWALLET_B64",  os.getenv("EWALLET_B64",  ""))
+    tnsnames_ora = st.secrets.get("TNSNAMES_ORA", os.getenv("TNSNAMES_ORA", ""))
+    if ewallet_b64 and tnsnames_ora:
         tmp = pathlib.Path(tempfile.mkdtemp())
-        with zipfile.ZipFile(io.BytesIO(base64.b64decode(b64))) as z:
-            z.extractall(tmp)
+        (tmp / "ewallet.p12").write_bytes(base64.b64decode(ewallet_b64))
+        (tmp / "tnsnames.ora").write_text(tnsnames_ora, encoding="utf-8")
+        (tmp / "sqlnet.ora").write_text(
+            f'WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="{tmp}")))\n'
+            "SSL_SERVER_DN_MATCH=yes\n",
+            encoding="utf-8",
+        )
         return str(tmp)
     return st.secrets.get("WALLET_DIR", os.getenv("WALLET_DIR", "wallet"))
 
