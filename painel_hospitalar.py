@@ -183,10 +183,13 @@ import base64, io, tempfile, pathlib
 def _wallet_dir():
     ewallet_b64  = st.secrets.get("EWALLET_B64",  os.getenv("EWALLET_B64",  ""))
     tnsnames_ora = st.secrets.get("TNSNAMES_ORA", os.getenv("TNSNAMES_ORA", ""))
+    ewallet_pem  = st.secrets.get("EWALLET_PEM",  os.getenv("EWALLET_PEM",  ""))
     if ewallet_b64 and tnsnames_ora:
         tmp = pathlib.Path(tempfile.mkdtemp())
         (tmp / "ewallet.p12").write_bytes(base64.b64decode(ewallet_b64))
         (tmp / "tnsnames.ora").write_text(tnsnames_ora, encoding="utf-8")
+        if ewallet_pem:
+            (tmp / "ewallet.pem").write_text(ewallet_pem, encoding="utf-8")
         (tmp / "sqlnet.ora").write_text(
             f'WALLET_LOCATION = (SOURCE = (METHOD = file) (METHOD_DATA = (DIRECTORY="{tmp}")))\n'
             "SSL_SERVER_DN_MATCH=yes\n",
