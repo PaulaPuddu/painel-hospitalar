@@ -176,17 +176,31 @@ PROFILE    = "PAINEL_APP_GENAI"
 CORES_ZONA = {"Crítico": "#A63A2B", "Atenção": "#C98B32", "Adequado": "#2D7A4D"}
 
 
+# ── WALLET — descompacta em memória se fornecido como base64 ──
+import base64, zipfile, io, tempfile, pathlib
+
+@st.cache_resource
+def _wallet_dir():
+    b64 = st.secrets.get("WALLET_B64", os.getenv("WALLET_B64", ""))
+    if b64:
+        tmp = pathlib.Path(tempfile.mkdtemp())
+        with zipfile.ZipFile(io.BytesIO(base64.b64decode(b64))) as z:
+            z.extractall(tmp)
+        return str(tmp)
+    return st.secrets.get("WALLET_DIR", os.getenv("WALLET_DIR", "wallet"))
+
+
 # ── CONEXÃO REAL ─────────────────────────────────────────────
 @st.cache_resource
 def get_connection():
-    user       = st.secrets.get("DB_USER",        os.getenv("DB_USER"))
-    password   = st.secrets.get("DB_PASSWORD",    os.getenv("DB_PASSWORD"))
-    dsn        = st.secrets.get("DB_DSN",          os.getenv("DB_DSN"))
-    wallet_dir = st.secrets.get("WALLET_DIR",      os.getenv("WALLET_DIR", "wallet"))
-    wallet_pw  = st.secrets.get("WALLET_PASSWORD", os.getenv("WALLET_PASSWORD"))
+    user      = st.secrets.get("DB_USER",        os.getenv("DB_USER"))
+    password  = st.secrets.get("DB_PASSWORD",    os.getenv("DB_PASSWORD"))
+    dsn       = st.secrets.get("DB_DSN",          os.getenv("DB_DSN"))
+    wallet_pw = st.secrets.get("WALLET_PASSWORD", os.getenv("WALLET_PASSWORD"))
+    wdir      = _wallet_dir()
     return oracledb.connect(
         user=user, password=password, dsn=dsn,
-        config_dir=wallet_dir, wallet_location=wallet_dir, wallet_password=wallet_pw,
+        config_dir=wdir, wallet_location=wdir, wallet_password=wallet_pw,
         tcp_connect_timeout=10,
     )
 
