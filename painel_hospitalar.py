@@ -588,6 +588,7 @@ try:
 except Exception as err:
     conectado = False
     conn = None
+    _conn_err = str(err)
 
 
 # ── SIDEBAR ─────────────────────────────────────────────────
@@ -677,6 +678,7 @@ with st.sidebar:
 
 if not conectado:
     st.error("Não foi possível conectar ao banco. Verifique as credenciais.")
+    st.code(_conn_err, language="text")
     st.stop()
 
 
