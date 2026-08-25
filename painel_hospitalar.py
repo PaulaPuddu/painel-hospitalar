@@ -187,6 +187,7 @@ def get_connection():
     return oracledb.connect(
         user=user, password=password, dsn=dsn,
         config_dir=wallet_dir, wallet_location=wallet_dir, wallet_password=wallet_pw,
+        tcp_connect_timeout=10,
     )
 
 
