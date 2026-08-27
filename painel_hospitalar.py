@@ -230,21 +230,12 @@ def garantir_profile(conn):
                       "region": "sa-saopaulo-1",
                       "model": "cohere.command-r-08-2024",
                       "oci_apiformat": "COHERE",
-                      "comments": "Banco de dados de saude publica do Brasil. SEMPRE responda em portugues do Brasil. NUNCA use ingles.",
                       "object_list": [
                         {"owner":"ADMIN","name":"SIH_INTERNACOES"},
                         {"owner":"ADMIN","name":"POPULACAO_DADOS"},
                         {"owner":"ADMIN","name":"VW_VAZIO_ASSISTENCIAL"}
                       ]
                     }'
-                ); END;
-            """, pname=PROFILE)
-        else:
-            cur.execute("""
-                BEGIN DBMS_CLOUD_AI.SET_ATTRIBUTE(
-                    profile_name => :pname,
-                    attribute_name => 'comments',
-                    attribute_value => 'Banco de dados de saude publica do Brasil. SEMPRE responda em portugues do Brasil. NUNCA use ingles.'
                 ); END;
             """, pname=PROFILE)
         cur.execute("BEGIN DBMS_CLOUD_AI.SET_PROFILE(:1); END;", [PROFILE])
